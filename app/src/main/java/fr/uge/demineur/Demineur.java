@@ -32,6 +32,10 @@ public class Demineur implements Serializable {
         }
     }
 
+    public boolean flagIndicator() {
+        return flagState;
+    }
+
     public void openCell(Cell cell) {
         if (!gameOver && !isGameWon()) {
             if (flagState) {
