@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -57,11 +60,31 @@ public class MainActivity extends AppCompatActivity implements OnCellClickListen
         if (demineur.isGameOver()) {
             // LOOSE
             demineur.getGrid().openAllBombs();
-            Toast.makeText(this, "J'te déteste t'es trop nul ٩(╬ʘ益ʘ╬)۶", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "LOOSER", Toast.LENGTH_SHORT).show();
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    Intent intent = new Intent();
+                    intent.putExtra("result", true);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }
+            }, 1500);
         } else if (demineur.isGameWon()) {
             // WIN
             demineur.getGrid().openAllBombs();
-            Toast.makeText(this, "Bien joué bg t'es trop fort je t'aime (´ ε ` )♡", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "GG", Toast.LENGTH_SHORT).show();
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    Intent intent = new Intent();
+                    intent.putExtra("result", true);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }
+            }, 1500);
         }
         adapter.setCells(demineur.getGrid().getCells());
     }
